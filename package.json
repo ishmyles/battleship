@@ -1,0 +1,14 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Simple implementation of the battleship game",
+  "private": true,
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Myles G",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
