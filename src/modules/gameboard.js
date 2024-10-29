@@ -133,6 +133,8 @@ export default () => {
       type: "destroyer",
       coordinates: new Set(["3,3", "4,3"]),
     });
+
+    return _oceanGrid;
   };
 
   return { placeRandomShips, receiveAttack, setDefaultCoordinates };

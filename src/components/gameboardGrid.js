@@ -42,7 +42,6 @@ export default (type) => {
     for (let i = 0; i < 100; i++) {
       const newGrid = document.createElement("div");
       newGrid.classList.add("grid");
-      //   newGrid.textContent = i;
       gridCells.appendChild(newGrid);
     }
     gameboardCells.appendChild(gridCells);
@@ -73,11 +72,33 @@ export default (type) => {
   };
 
   const renderShips = (fleetCoordinates) => {
-    // TODO: Implement functionality to render player ships
-    // based on _oceangrid location
-    const newShip = document.createElement("div");
-    newShip.classList.add("ship");
-    gameboardShips.appendChild(newShip);
+    fleetCoordinates.forEach((ship) => {
+      const coordinates = [...ship.coordinates];
+      // Since coordinates are based of zero-based index, we need to add 1 for CSS Grid
+      const shipHead = coordinates[0].split(",");
+      const shipTail = coordinates[coordinates.length - 1].split(",");
+
+      // Ship width takes up 1 row/column of the CSS Grid (depends if ship is vertical/horizontal)
+      const shipWidth =
+        +shipTail[0] > +shipHead[0]
+          ? "span " + (+shipTail[0] - +shipHead[0] + 1)
+          : +shipTail[0] + 1;
+
+      // Ship length spans over rows/columns of the CSS Grid (depends if ship is vertical/horizontal)
+      const shipLength =
+        +shipTail[1] > +shipHead[1]
+          ? "span " + (+shipTail[1] - +shipHead[1] + 1)
+          : +shipTail[1] + 1;
+
+      const newShip = document.createElement("div");
+      newShip.setAttribute("id", ship.type);
+      newShip.classList.add("ship");
+      newShip.style.gridArea = `${+shipHead[0] + 1} / ${
+        +shipHead[1] + 1
+      } / ${shipWidth} / ${shipLength}`;
+
+      gameboardShips.appendChild(newShip);
+    });
   };
 
   return { renderGrid, renderShips };

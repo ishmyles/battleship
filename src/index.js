@@ -1,10 +1,15 @@
 import "./assets/styles/index.css";
 
 import { default as GameboardGrid } from "./components/gameboardGrid";
+import { default as GameController } from "./modules/gameController";
 
-const playerGameboard = GameboardGrid("player");
-const enemyGameboard = GameboardGrid("enemy");
+const gameController = GameController();
 
-playerGameboard.renderGrid();
-playerGameboard.renderShips();
-enemyGameboard.renderGrid();
+const playerGameboardDOM = GameboardGrid("player");
+const enemyGameboardDOM = GameboardGrid("enemy");
+
+playerGameboardDOM.renderGrid();
+playerGameboardDOM.renderShips(
+  gameController.player.gameboard.setDefaultCoordinates()
+);
+enemyGameboardDOM.renderGrid();
