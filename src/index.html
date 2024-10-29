@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <header>
+        <div class="topbar">
+            <h1>Battleship</h1>
+        </div>
+    </header>
+    <main>
+        <div id="gameboards">
+            <div class="board playerboard">
+                <h2>Your Grid</h2>
+                <div id="player-grid" class="gameboard">
+                    <div class="grid-label x-axis"></div>
+                    <div class="grid-label y-axis"></div>
+                    <div class="gameboard-grid gameboard-cells"></div>
+                    <div class="gameboard-grid gameboard-ships"></div>
+                    <div class="gameboard-grid gameboard-markers"></div>
+                </div>
+            </div>
+            <div class="board enemyboard">
+                <h2>Enemy Grid</h2>
+                <div id="enemy-grid" class="gameboard">
+
+                </div>
+            </div>
+        </div>
+        <div id="turn-history">
+        </div>
+    </main>
+</body>
+</html>
