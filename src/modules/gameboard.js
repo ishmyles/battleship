@@ -1,8 +1,12 @@
+import randomCoordinates, {
+  default as RandomCoordinates,
+} from "../utils/randomCoordinates";
 import { default as Ship } from "./ship";
 
 export default () => {
   let _sunkCounter = 0;
   let _oceanGrid = [];
+  let _hitShotList = new Set();
   let _missedShotList = new Set();
   let _ships = {
     carrier: Ship("carrier"),
@@ -55,10 +59,7 @@ export default () => {
     const placedCoordinates = new Set();
 
     const setShipCoordinates = (type) => {
-      const shipHead = [
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-      ];
+      const shipHead = RandomCoordinates();
       const shipCoordinates = _createShipCoordinates(type, shipHead);
 
       if (
@@ -86,10 +87,16 @@ export default () => {
     return _oceanGrid;
   };
 
-  const receiveAttack = (atkCoordinates) => {
+  const receiveAttack = (atkCoordinates = randomCoordinates()) => {
+    if (
+      _hitShotList.has(atkCoordinates.toString()) ||
+      _missedShotList.has(atkCoordinates.toString())
+    )
+      return receiveAttack();
+
     const atkOutcome = {
       result: {
-        coordinates: atkCoordinates,
+        coordinates: atkCoordinates.toString(),
         hit: false,
         type: "nothing",
         sunk: false,
@@ -102,12 +109,14 @@ export default () => {
         atkOutcome.result.hit = true;
         atkOutcome.result.type = ship.type;
         atkOutcome.result.sunk = _ships[ship.type].hit();
+        _hitShotList.add(atkCoordinates.toString());
 
         atkOutcome.result.sunk && _sunkCounter++;
         if (_sunkCounter === 5) atkOutcome.gameover = true;
         break;
       }
     }
+
     if (!atkOutcome.result.hit) _missedShotList.add(atkCoordinates.toString());
     return atkOutcome;
   };

@@ -76,12 +76,26 @@
     text-align: center;
 }
 
-.gameboard-outer {
-    z-index: 1;
-}
-
-
 .ship {
     background-color: rgb(0, 132, 255);
     border: 2px solid rgb(3, 99, 188);
+}
+
+.marker-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.marker {
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.marker-hit {
+    background-color: red;
+}
+
+.marker-miss {
+    background-color: yellow;
 }

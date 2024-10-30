@@ -55,11 +55,11 @@ export default (type) => {
     gameboardCells.appendChild(gridCells);
 
     if (playerType === "enemy") {
-      // TODO: Add functionailty to attack coordinates
       document
         .querySelector(`#${playerType}-grid`)
         .addEventListener("click", (e) => {
-          console.log(e.target.dataset.coordinates);
+          if (e.target.classList.contains("marked")) return;
+          pubsub.publish("PLAY_TURN", e.target.dataset.coordinates);
         });
     }
 
@@ -70,6 +70,7 @@ export default (type) => {
     for (let col = 0; col < 100; col++) {
       if (col % 10 === 0) row++;
       const newGrid = document.createElement("div");
+      newGrid.classList.add("marker-grid");
       newGrid.setAttribute(
         "data-coordinates",
         `${row - 1},${col > 9 ? col % 10 : col}`
