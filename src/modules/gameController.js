@@ -27,12 +27,13 @@ export default () => {
 
   const startGame = () => {
     const enemyStarts = !!Math.floor(Math.random() * 2);
-    enemy.gameboard.setDefaultCoordinates();
+    enemy.gameboard.placeRandomShips();
 
     if (enemyStarts) {
       _isPlayerTurn = false;
       playEnemyTurn();
     } else {
+      pubsub.publish("PLAYER_START");
       _isPlayerTurn = true;
     }
   };
@@ -52,7 +53,7 @@ export default () => {
     playTurn(coordinates);
 
     if (enemy.getPlayerType() === "computer" && !_gameover) {
-      setTimeout(() => playEnemyTurn(), 1000);
+      setTimeout(() => playEnemyTurn(), 2000);
     }
   };
 
