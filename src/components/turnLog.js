@@ -8,10 +8,15 @@ export default () => {
     pubsub.subscribe("RESET_HISTORY", resetTurnLog);
   };
 
-  const updateTurnHistory = ({ player, result }) => {
-    _turnHistory.innerHTML = `<strong>${player.toUpperCase()}: </strong> Hit ${
-      result.type
-    }. ${result.sunk ? "- sunk " + result.type : ""}`;
+  const updateTurnHistory = ({ player, result, gameover }) => {
+    _turnHistory.innerHTML =
+      gameover && player === "player"
+        ? "<strong>GAMEOVER:</strong> You win!"
+        : gameover && player === "enemy"
+        ? "<strong>GAMEOVER:</strong> You Lose!"
+        : `<strong>${player.toUpperCase()}: </strong> Hit ${result.type} ${
+            result.sunk ? "- sunk " + result.type : ""
+          }`;
   };
 
   const resetTurnLog = () => {

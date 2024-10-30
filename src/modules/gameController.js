@@ -51,8 +51,9 @@ export default () => {
     if (!_isPlayerTurn || _gameover) return;
     playTurn(coordinates);
 
-    if (enemy.getPlayerType() === "computer" && !_gameover)
+    if (enemy.getPlayerType() === "computer" && !_gameover) {
       setTimeout(() => playEnemyTurn(), 1000);
+    }
   };
 
   const playTurn = (atkCoordinates) => {
@@ -81,12 +82,12 @@ export default () => {
     pubsub.publish("UPDATE_HISTORY", {
       player: _isPlayerTurn ? "player" : "enemy",
       result: turnOutcome.result,
+      gameover: turnOutcome.gameover,
     });
   };
 
   const checkOutcome = (turnOutcome) => {
-    console.log(_isPlayerTurn ? "PLAYER" : "ENEMY", turnOutcome);
-    // TODO: Gameover logic here?
+    if (turnOutcome.gameover) _gameover = !_gameover;
     _isPlayerTurn = !_isPlayerTurn;
   };
 
