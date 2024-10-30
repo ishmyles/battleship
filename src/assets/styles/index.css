@@ -59,7 +59,7 @@ main {
     flex-direction: row;
 
     position: absolute;
-    top: -20px;
+    top: -25px;
     right: 0;
 
     width: 400px;
@@ -70,7 +70,7 @@ main {
 
     position: absolute;
     top: 0;
-    left: -25px;
+    left: -30px;
 
     height: 400px;
     text-align: end;
