@@ -5,6 +5,18 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+*:hover {
+    cursor: default;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
 #gameboards {
     display: flex;
     flex-direction: row;
@@ -12,7 +24,9 @@
 }
 
 #gameboards h2 {
-    margin-bottom: 25px;
+    text-align: center;
+    text-transform: capitalize;
+    margin-top: 10px;
 }
 
 .board {
@@ -98,4 +112,19 @@
 
 .marker-miss {
     background-color: yellow;
+}
+
+#game-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 10px;
+}
+
+#reset {
+    display: none;
 }

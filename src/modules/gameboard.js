@@ -16,6 +16,20 @@ export default () => {
     destroyer: Ship("destroyer"),
   };
 
+  const resetBoard = () => {
+    _sunkCounter = 0;
+    _oceanGrid = [];
+    _hitShotList = new Set();
+    _missedShotList = new Set();
+    _ships = {
+      carrier: Ship("carrier"),
+      battleship: Ship("battleship"),
+      cruiser: Ship("cruiser"),
+      submarine: Ship("submarine"),
+      destroyer: Ship("destroyer"),
+    };
+  };
+
   const _createShipCoordinates = (type, startingCoordinate) => {
     const length =
       type === "carrier"
@@ -56,6 +70,7 @@ export default () => {
   };
 
   const placeRandomShips = () => {
+    resetBoard();
     const placedCoordinates = new Set();
 
     const setShipCoordinates = (type) => {

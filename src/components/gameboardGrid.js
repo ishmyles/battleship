@@ -15,12 +15,6 @@ export default (type) => {
   );
 
   const initialise = () => {
-    if (playerType === "player") {
-      pubsub.subscribe("SET_DEFAULT_SHIPS", renderShips);
-    }
-  };
-
-  const renderGrid = () => {
     // Render the axis labels
     const xAxis = document.querySelector(`#${playerType}-grid .x-axis`);
     const yAxis = document.querySelector(`#${playerType}-grid .y-axis`);
@@ -42,6 +36,24 @@ export default (type) => {
 
     xAxis.appendChild(xAxisLabel);
     yAxis.appendChild(yAxisLabel);
+
+    const subheading = document.createElement("h2");
+    subheading.textContent = `${playerType} Grid`;
+    document.querySelector(`.board.${playerType}board`).appendChild(subheading);
+
+    if (playerType === "player") {
+      pubsub.subscribe("SET_DEFAULT_SHIPS", renderShips);
+      pubsub.subscribe("RESET_SHIPS", resetShips);
+      pubsub.subscribe("SET_RANDOM_SHIPS", renderShips);
+    }
+    pubsub.subscribe("RESET_GAME", renderGrid);
+  };
+
+  const renderGrid = () => {
+    // Resets the grids
+    gameboardCells.innerHTML = "";
+    gameboardShips.innerHTML = "";
+    gameboardMarkers.innerHTML = "";
 
     // Render the playerboard
     const gridCells = new DocumentFragment();
@@ -108,6 +120,10 @@ export default (type) => {
 
       gameboardShips.appendChild(newShip);
     });
+  };
+
+  const resetShips = () => {
+    gameboardShips.innerHTML = "";
   };
 
   initialise();

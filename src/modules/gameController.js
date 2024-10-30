@@ -8,12 +8,21 @@ export default () => {
   let _isPlayerTurn;
 
   const initialise = () => {
+    pubsub.subscribe("START_GAME", startGame);
+    pubsub.subscribe("SHUFFLE_SHIPS", setRandomShips);
+    pubsub.subscribe("RESTART_GAME", restartGame);
     pubsub.subscribe("PLAY_TURN", playRound);
   };
 
   const setDefaultShips = () => {
     const shipCoordinates = player.gameboard.setDefaultCoordinates();
     pubsub.publish("SET_DEFAULT_SHIPS", shipCoordinates);
+  };
+
+  const setRandomShips = () => {
+    const shipCoordinates = player.gameboard.placeRandomShips();
+    pubsub.publish("RESET_SHIPS");
+    pubsub.publish("SET_RANDOM_SHIPS", shipCoordinates);
   };
 
   const startGame = () => {
@@ -23,7 +32,19 @@ export default () => {
     if (enemyStarts) {
       _isPlayerTurn = false;
       playEnemyTurn();
+    } else {
+      _isPlayerTurn = true;
     }
+  };
+
+  const restartGame = () => {
+    player = Player("player");
+    enemy = Player("computer");
+    _gameover = false;
+    _isPlayerTurn;
+    pubsub.publish("RESET_GAME");
+    pubsub.publish("RESET_HISTORY");
+    setDefaultShips();
   };
 
   const playRound = (coordinates) => {
@@ -37,20 +58,29 @@ export default () => {
   const playTurn = (atkCoordinates) => {
     const turnResult = enemy.gameboard.receiveAttack(atkCoordinates.split(","));
     updateBoard(turnResult);
+    updateTurnHistory(turnResult);
     checkOutcome(turnResult);
   };
 
   const playEnemyTurn = () => {
     const turnResult = player.gameboard.receiveAttack();
     updateBoard(turnResult);
+    updateTurnHistory(turnResult);
     checkOutcome(turnResult);
   };
 
   const updateBoard = (turnOutcome) => {
     pubsub.publish("UPDATE_GRID", {
-      targetGrid: _isPlayerTurn ? "enemy" : "player",
+      targetGrid: _isPlayerTurn ? "enemy" : "player", // Reversed logic for targetgrid
       coordinates: turnOutcome.result.coordinates,
       isHit: turnOutcome.result.hit,
+    });
+  };
+
+  const updateTurnHistory = (turnOutcome) => {
+    pubsub.publish("UPDATE_HISTORY", {
+      player: _isPlayerTurn ? "player" : "enemy",
+      result: turnOutcome.result,
     });
   };
 
