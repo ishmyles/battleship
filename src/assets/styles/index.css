@@ -65,6 +65,10 @@ main {
     width: 400px;
 }
 
+.x-axis > * {
+    min-width: 10px;
+}
+
 .y-axis {
     flex-direction: column;
 
