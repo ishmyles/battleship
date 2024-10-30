@@ -1,3 +1,5 @@
+import pubsub from "../utils/pubsub";
+
 export default (type) => {
   const playerType = type === "player" ? "player" : "enemy";
 
@@ -11,6 +13,12 @@ export default (type) => {
   const gameboardMarkers = document.querySelector(
     `#${playerType}-grid .gameboard-markers`
   );
+
+  const initialise = () => {
+    if (playerType === "player") {
+      pubsub.subscribe("SET_DEFAULT_SHIPS", renderShips);
+    }
+  };
 
   const renderGrid = () => {
     // Render the axis labels
@@ -100,6 +108,8 @@ export default (type) => {
       gameboardShips.appendChild(newShip);
     });
   };
+
+  initialise();
 
   return { renderGrid, renderShips };
 };

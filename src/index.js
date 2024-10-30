@@ -9,7 +9,6 @@ const playerGameboardDOM = GameboardGrid("player");
 const enemyGameboardDOM = GameboardGrid("enemy");
 
 playerGameboardDOM.renderGrid();
-playerGameboardDOM.renderShips(
-  gameController.player.gameboard.setDefaultCoordinates()
-);
 enemyGameboardDOM.renderGrid();
+
+gameController.setDefaultShips();
