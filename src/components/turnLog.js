@@ -5,6 +5,7 @@ export default () => {
 
   const initialise = () => {
     pubsub.subscribe("UPDATE_HISTORY", updateTurnHistory);
+    pubsub.subscribe("PLAYER_START", playerStartMsg);
     pubsub.subscribe("RESET_HISTORY", resetTurnLog);
   };
 
@@ -17,6 +18,10 @@ export default () => {
         : `<strong>${player.toUpperCase()}: </strong> Hit ${result.type} ${
             result.sunk ? "- sunk " + result.type : ""
           }`;
+  };
+
+  const playerStartMsg = () => {
+    _turnHistory.innerHTML = "You attack first!";
   };
 
   const resetTurnLog = () => {
