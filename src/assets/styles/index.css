@@ -5,6 +5,11 @@
     --dark-blue: #6c757d;
     --red: red;
     --white: white;
+
+    --board-xs: 280px;
+    --board-sm: 320px;
+    --board-md: 370px;
+    --board-lg: 400px;
 }
 
 * {
@@ -62,7 +67,7 @@ main {
     top: -25px;
     right: 0;
 
-    width: 400px;
+    width: var(--board-lg);
 }
 
 .x-axis > * {
@@ -76,14 +81,14 @@ main {
     top: 0;
     left: -30px;
 
-    height: 400px;
+    height: var(--board-lg);
     text-align: end;
 }
 
 .gameboard {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: var(--board-lg);
+    height: var(--board-lg);
     background-color: var(--cream-white);
     border: 1px solid var(--cream-white);
 }
@@ -153,4 +158,60 @@ main {
 
 #reset {
     display: none;
+}
+
+@media (max-width: 900px) {
+    #gameboards {
+        flex-direction: column;
+        justify-content: center;
+    }
+    .board {
+        padding-left: 15px;
+        padding-right: 0px;
+    }
+}
+
+@media (min-width: 320px) {
+    .gameboard {
+        width: var(--board-xs);
+        height: var(--board-xs);
+    }
+
+    .x-axis {
+        width: var(--board-xs);
+    }
+
+    .y-axis {
+        height: var(--board-xs);
+    }
+}
+
+@media (min-width: 375px) {
+    .gameboard {
+        width: var(--board-sm);
+        height: var(--board-sm);
+    }
+
+    .x-axis {
+        width: var(--board-sm);
+    }
+
+    .y-axis {
+        height: var(--board-sm);
+    }
+}
+
+@media (min-width: 425px) {
+    .gameboard {
+        width: var(--board-md);
+        height: var(--board-md);
+    }
+
+    .x-axis {
+        width: var(--board-md);
+    }
+
+    .y-axis {
+        height: var(--board-md);
+    }
 }
