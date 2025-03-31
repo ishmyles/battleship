@@ -1,6 +1,8 @@
-# battleship
+# Battleship
 
 This repository contains a simple implementation of the battleship game.
+
+- Check out the [live version](https://ishmyles.github.io/battleship/)
 
 ## Technologies Used
 
